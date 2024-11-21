@@ -20,7 +20,7 @@ CREATE TABLE person (
 CREATE TABLE student (
     id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
     present_skill_level VARCHAR(12) NOT NULL,
-    person_id INT,
+    person_id INT NOT NULL,
     CONSTRAINT pk_student PRIMARY KEY (id),
     CONSTRAINT fk_person_id FOREIGN KEY (person_id) REFERENCES person(id) ON DELETE CASCADE
 );
