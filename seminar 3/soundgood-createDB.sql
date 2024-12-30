@@ -1,5 +1,5 @@
 -- sql script for project task 2 by Gustav Alvestav, alvestav@kth.se
--- ver.2.1, generated through Astah by exporting sql
+-- ver.2.2, generated through Astah by exporting sql
 
 CREATE TABLE instrument (
  id INT GENERATED ALWAYS AS IDENTITY NOT NULL,
@@ -124,8 +124,8 @@ ALTER TABLE weekday_availability ADD CONSTRAINT PK_weekday_availability PRIMARY 
 CREATE TABLE group_lesson (
  lesson_id INT NOT NULL,
  time_slot VARCHAR(10),
- minimum_students VARCHAR(10),
- maximum_students VARCHAR(10)
+ minimum_students INT,
+ maximum_students INT
 );
 
 ALTER TABLE group_lesson ADD CONSTRAINT PK_group_lesson PRIMARY KEY (lesson_id);
