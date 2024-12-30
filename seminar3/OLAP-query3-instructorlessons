@@ -1,0 +1,13 @@
+SELECT 
+    L.instructor_id AS "Instructor ID", 
+    P.first_name AS "First Name", 
+    P.last_name AS "Last Name", 
+    COUNT(*) AS "No of Lessons" 
+FROM 
+    lesson AS L 
+JOIN 
+    instructor AS I ON L.instructor_id=I.id 
+LEFT JOIN 
+    person AS P ON I.person_id=P.id 
+GROUP BY 
+    L.instructor_id, P.first_name, P.last_name;
