@@ -1,11 +1,18 @@
-SELECT TO_CHAR(L.date, 'Mon') AS month, 
-COUNT(*) AS total, 
-SUM(CASE WHEN lesson_type='Individual' THEN 1 ELSE 0 END) AS individual, 
-SUM(CASE WHEN lesson_type='Group' THEN 1 ELSE 0 END) AS group, 
-SUM(CASE WHEN lesson_type='Ensamble' THEN 1 ELSE 0 END) AS ensamble 
-FROM lesson AS L
-LEFT JOIN lesson_info AS LI
-ON L.lesson_info_id=LI.id 
-WHERE EXTRACT(year FROM L.date)=2025 
-GROUP BY EXTRACT(month FROM L.date), TO_CHAR(L.date, 'Mon')
-ORDER BY EXTRACT(month FROM L.date) ASC;
+SELECT 
+    TO_CHAR(L.date, 'Mon') AS month, 
+    COUNT(*) AS total, 
+    SUM(CASE WHEN lesson_type='Individual' THEN 1 ELSE 0 END) AS individual, 
+    SUM(CASE WHEN lesson_type='Group' THEN 1 ELSE 0 END) AS group, 
+    SUM(CASE WHEN lesson_type='Ensamble' THEN 1 ELSE 0 END) AS ensamble 
+FROM 
+    lesson AS L
+LEFT JOIN 
+    lesson_info AS LI
+ON  
+    L.lesson_info_id=LI.id 
+WHERE 
+    EXTRACT(year FROM L.date)=2025 
+GROUP BY 
+    EXTRACT(month FROM L.date), TO_CHAR(L.date, 'Mon')
+ORDER BY 
+    EXTRACT(month FROM L.date) ASC;
