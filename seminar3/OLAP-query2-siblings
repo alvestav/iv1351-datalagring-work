@@ -1,0 +1,29 @@
+SELECT
+    COALESCE(sibling_count.sibling_total, 0) AS "Number of Siblings",
+    COUNT(student.id) AS "Number of Students"
+FROM 
+    student
+LEFT JOIN
+    (
+        SELECT
+            student1_id AS student_id, 
+            COUNT(*) AS sibling_total 
+        FROM 
+            student_siblings
+        GROUP BY 
+            student1_id
+        UNION ALL
+        SELECT
+            student2_id AS student_id,
+            COUNT(*) AS sibling_total
+        FROM 
+            student_siblings
+        GROUP BY 
+            student2_id
+    ) AS sibling_count
+ON
+    student.id=sibling_count.student_id
+GROUP BY
+    sibling_count.sibling_total
+ORDER BY
+    "Number of Siblings";

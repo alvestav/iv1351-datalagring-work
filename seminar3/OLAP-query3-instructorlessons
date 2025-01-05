@@ -8,6 +8,13 @@ FROM
 JOIN 
     instructor AS I ON L.instructor_id=I.id 
 LEFT JOIN 
-    person AS P ON I.person_id=P.id 
+    person AS P ON I.person_id=P.id
+WHERE 
+    DATE_PART('year', L.date)=DATE_PART('year', now()) 
+AND 
+    DATE_PART('month', L.date)=DATE_PART('month', now())
 GROUP BY 
-    L.instructor_id, P.first_name, P.last_name;
+    L.instructor_id, P.first_name, P.last_name
+HAVING
+    COUNT(*)>=3
+ORDER BY COUNT(*) DESC;
