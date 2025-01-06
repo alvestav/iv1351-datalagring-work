@@ -2,14 +2,25 @@ SELECT
     TO_CHAR(L.date, 'Day') AS "Day", 
     E.genre AS "Genre", 
     CASE 
-        WHEN GL.maximum_students-COUNT(*)>0 
-            AND GL.maximum_students-COUNT(*)<3 THEN '1 or 2 seats' 
-        WHEN GL.maximum_students-COUNT(*)>2 THEN 'many seats' 
+        WHEN 
+            GL.maximum_students-COUNT(*)>0 
+        AND 
+            GL.maximum_students-COUNT(*)<3 
+            THEN '1 or 2 seats' 
+        WHEN 
+            GL.maximum_students-COUNT(*)>2 
+            THEN 'many seats' 
         ELSE 'no seats' 
     END AS "No of Free Seats" 
-FROM lesson AS L 
-FULL JOIN student_lesson AS SL ON SL.lesson_id=L.id 
-FULL JOIN group_lesson AS GL ON GL.lesson_id=L.id 
-LEFT JOIN ensamble AS E ON L.id=E.lesson_id 
-WHERE DATE_PART('week', L.date)=DATE_PART('week', now() + interval '1 week') 
-GROUP BY L.date, E.genre, GL.maximum_students;
+FROM 
+    lesson AS L 
+FULL JOIN 
+    student_lesson AS SL ON SL.lesson_id=L.id 
+FULL JOIN 
+    group_lesson AS GL ON GL.lesson_id=L.id 
+LEFT JOIN 
+    ensamble AS E ON L.id=E.lesson_id 
+WHERE 
+    DATE_PART('week', L.date)=DATE_PART('week', now() + interval '1 week') 
+GROUP BY 
+    L.date, E.genre, GL.maximum_students;
